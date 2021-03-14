@@ -52,7 +52,7 @@ if __name__ == '__main__':
     city = df["city_ch"][0]
     xqs = df["xiaoqu"][0:num]
     prices = df["price"][0:num]
-    bar = Bar("{0}小区均价".format(city))
+    bar = Bar(f"{city}小区均价")
     bar.add("小区均价前{0}名".format(num), xqs, prices, is_stack=True, is_label_show=True, xaxis_interval=0, xaxis_rotate=45)
     bar.render(path="xiaoqu.html")
 

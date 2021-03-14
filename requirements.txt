@@ -8,5 +8,5 @@ pymongo
 xlsxwriter
 numpy
 pandas
-pyecharts
+pyecharts==0.5.10
 pyecharts-snapshot

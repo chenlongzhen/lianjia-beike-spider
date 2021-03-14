@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     if database == "mysql":
         import records
-        db = records.Database('mysql://root:123456@localhost/lianjia?charset=utf8', encoding='utf-8')
+        db = records.Database('mysql://root:Myc521lz@localhost/lianjia?charset=utf8', encoding='utf-8')
     elif database == "mongodb":
         from pymongo import MongoClient
         conn = MongoClient('localhost', 27017)
@@ -115,8 +115,10 @@ if __name__ == '__main__':
                     print(text)
                     print(e)
                     continue
+                print(line)
                 sale = sale.replace(r'套在售二手房', '')
                 price = price.replace(r'暂无', '0')
+                price = price.replace(r'数据', '')
                 price = price.replace(r'元/m2', '')
                 price = int(price)
                 sale = int(sale)
@@ -134,11 +136,11 @@ if __name__ == '__main__':
                     collection.insert(data)
                 elif database == "excel":
                     if not PYTHON_3:
-                        worksheet.write_string(row, col, unicode(city_ch, 'utf-8'))
+                        worksheet.write_string(row, col, str(city_ch, 'utf-8'))
                         worksheet.write_string(row, col + 1, date)
-                        worksheet.write_string(row, col + 2, unicode(district, 'utf-8'))
-                        worksheet.write_string(row, col + 3, unicode(area, 'utf-8'))
-                        worksheet.write_string(row, col + 4, unicode(xiaoqu, 'utf-8'))
+                        worksheet.write_string(row, col + 2, str(district, 'utf-8'))
+                        worksheet.write_string(row, col + 3, str(area, 'utf-8'))
+                        worksheet.write_string(row, col + 4, str(xiaoqu, 'utf-8'))
                         worksheet.write_number(row, col + 5, price)
                         worksheet.write_number(row, col + 6, sale)
                     else:

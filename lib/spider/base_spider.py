@@ -11,7 +11,7 @@ from lib.utility.date import *
 import lib.utility.version
 import random
 
-thread_pool_size = 50
+thread_pool_size = 6
 
 # 防止爬虫被禁，随机延迟设定
 # 如果不想delay，就设定False，
@@ -19,8 +19,8 @@ thread_pool_size = 50
 RANDOM_DELAY = False
 LIANJIA_SPIDER = "lianjia"
 BEIKE_SPIDER = "ke"
-# SPIDER_NAME = LIANJIA_SPIDER
-SPIDER_NAME = BEIKE_SPIDER
+SPIDER_NAME = LIANJIA_SPIDER
+#SPIDER_NAME = BEIKE_SPIDER
 
 
 class BaseSpider(object):
