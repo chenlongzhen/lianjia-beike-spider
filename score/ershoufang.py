@@ -7,7 +7,8 @@ from gevent.pool import Pool
 monkey.patch_all()
 p = Pool(8)
 
-from common import *
+from common.DingTool import DingTool
+from common.common import *
 from score import get_score
 from tqdm import tqdm
 import re
@@ -504,5 +505,7 @@ def read_ershoufang(date):
 
 if __name__ == "__main__":
 	date_str = datetime.now().strftime("%Y%m%d")
+	DingTool.ding_text_msg(f"拉取{date_str} 二手房信息")
 	do_ershoufang_spider(date_str)
 	read_ershoufang(date_str)
+	DingTool.ding_text_msg(f"拉取{date_str} 二手房信息 done.")
