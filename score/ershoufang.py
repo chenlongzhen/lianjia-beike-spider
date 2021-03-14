@@ -101,8 +101,8 @@ def ershoufang_spider(base_file, url, date):
 	soup = get_soup(url)
 	with open(base_file, 'a') as f:
 		f.write("url: %s" % url)
-		print('~~~~~~~~~' * 10)
-		print(url)
+		#print('~~~~~~~~~' * 10)
+		#print(url)
 		house_id = str(url).split('/')[-1].split('.html')[0]
 		f.write('\t' + "house_id: %s" % house_id)
 		info_dict = defaultdict()
@@ -262,23 +262,29 @@ def do_ershoufang_spider(date):
 	"""
 	time_start = time.time()
 	base_file = get_file('ershoufang', date)
+	time_end = time.time()
+	time_diff = time_end - time_start
+	print("获取二手房区域链接耗时:%d" % time_diff)
+
 	with open(base_file, 'wt') as f:
 		f.write('')
 	# 获取对应链接
 	urls_dict = get_urls('ershoufang')
-	time_end = time.time()
-	time_diff = time_end - time_start
-	print("耗时:%d" % time_diff)
 
 	# 使用多协程
 	p = Pool(8)
 	tasks = list()
 	for region in urls_dict:
-		for area in tqdm(urls_dict[region]):
+		for area in urls_dict[region]:
 			pages_url, total_pages = urls_dict[region][area]
 			tasks.append(p.spawn(single_process_ershoufang, base_file, pages_url, total_pages,date))
+
 	print("协程 begin")
+	time_start = time.time()
 	gevent.joinall(tasks)
+	time_end = time.time()
+	time_diff = time_end - time_start
+	print("获取二手房详情耗时:%d" % time_diff)
 	print("协程 end")
 
 
