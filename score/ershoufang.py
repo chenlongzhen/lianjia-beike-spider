@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 """
 """
+import gevent
+from gevent import monkey
+from gevent.pool import Pool
+monkey.patch_all()
+p = Pool(8)
+
 from common import *
 from score import get_score
 from tqdm import tqdm
 import re
-from multiprocessing import Pool, Process
 import requests
 import random
 from itertools import zip_longest
@@ -265,11 +270,7 @@ def do_ershoufang_spider(date):
 	print("耗时:%d" % time_diff)
 
 	# 使用多协程
-	import gevent
-	from gevent import monkey
-	from gevent.pool import Pool
 	p = Pool(8)
-	monkey.patch_all()
 	tasks = list()
 	for region in urls_dict:
 		for area in tqdm(urls_dict[region]):
@@ -351,12 +352,9 @@ def get_urls(type):
 	#    get_region_area_gevent(urls, region)
 
 	# 使用多协程
-	from gevent import monkey
-	import gevent
-	monkey.patch_all()
 	tasks = list()
 	for region in regions:  # fix!!!!
-		tasks.append(gevent.spawn(get_region_area_gevent, urls, region))
+		tasks.append(p.spawn(get_region_area_gevent, urls, region))
 		print(tasks)
 	gevent.joinall(tasks)
 	print(f"urls: {urls}")
