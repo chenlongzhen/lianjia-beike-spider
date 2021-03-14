@@ -258,26 +258,43 @@ def do_ershoufang_spider(date):
 	base_file = get_file('ershoufang', date)
 	with open(base_file, 'wt') as f:
 		f.write('')
+	# 获取对应链接
 	urls_dict = get_urls('ershoufang')
 	time_end = time.time()
 	time_diff = time_end - time_start
 	print("耗时:%d" % time_diff)
-	NUM = 10
 
+	# 使用多协程
+	import gevent
+	from gevent import monkey
+	from gevent.pool import Pool
+	p = Pool(8)
+	monkey.patch_all()
+	tasks = list()
 	for region in urls_dict:
-		print(region, "2" * 20)
-		for i, area in enumerate(urls_dict[region]):
+		for area in tqdm(urls_dict[region]):
 			pages_url, total_pages = urls_dict[region][area]
-			# 暂时执行单任务
-			# total_pages = 1
-			p = Process(target=single_process_ershoufang, args=(base_file, pages_url, total_pages,date))
-			print('%s-%s Child process will start' % (region, area)), '~' * 20
-			print('1' * 20, i)
-			p.start()
-			print('2' * 20, i)
-			if i % NUM == 0:
-				p.join()
-		p.join()
+			tasks.append(p.spawn(single_process_ershoufang, base_file, pages_url, total_pages,date))
+	print("协程 begin")
+	gevent.joinall(tasks)
+	print("协程 end")
+
+
+#NUM = 10
+#	for region in urls_dict:
+#		print(region, "2" * 20)
+#		for i, area in enumerate(urls_dict[region]):
+#			pages_url, total_pages = urls_dict[region][area]
+#			# 暂时执行单任务
+#			# total_pages = 1
+#			p = Process(target=single_process_ershoufang, args=(base_file, pages_url, total_pages,date))
+#			print('%s-%s Child process will start' % (region, area)), '~' * 20
+#			print('1' * 20, i)
+#			p.start()
+#			print('2' * 20, i)
+#			if i % NUM == 0:
+#				p.join()
+#		p.join()
 
 #	# single run fix
 #	for region in urls_dict:
