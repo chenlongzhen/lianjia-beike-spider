@@ -22,6 +22,7 @@ hds = [{'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.
 # 北京区域列表
 regions = [u"东城", u"西城", u"朝阳", u"海淀", u"丰台", u"石景山", u"通州", u"昌平", u"大兴", u"亦庄开发区", u"顺义", u"房山", u"门头沟", u"平谷", u"怀柔",
            u"密云", u"延庆", u"燕郊"]
+
 regions_dict = {
     'region0': [u"东城"],
     'region1': [u"西城"],
@@ -32,3 +33,5 @@ regions_dict = {
     'region6': [u"大兴", u"亦庄开发区", u"顺义", u"房山", u"门头沟", u"平谷", u"怀柔", u"密云", u"延庆", u"燕郊"],
     'region7': []
 }
+
+use_regions =[u"朝阳", u"海淀", u"丰台", u"石景山", u"通州", u"昌平", u"大兴", u"顺义",u"燕郊"]

@@ -352,17 +352,24 @@ def get_urls(type):
 	url_region = 'https://bj.lianjia.com/{type}/'.format(type=type)
 	soup_region = get_soup(url_region)
 	regions = soup_region.find('div', {'data-role': 'ershoufang'}).find_all('a')
+#
+#	# 获取城区和商圈
+#
+#	# for region in tqdm(regions):
+#	#    get_region_area_gevent(urls, region)
 
-	# 获取城区和商圈
-
-	# for region in tqdm(regions):
-	#    get_region_area_gevent(urls, region)
-
+	print(f"爬取的区域：{use_regions}")
+	print(f"爬取的区域：{use_regions}")
+	print(f"爬取的区域：{use_regions}")
+	time.sleep(3)
 	# 使用多协程
 	tasks = list()
 	for region in regions:  # fix!!!!
-		tasks.append(p.spawn(get_region_area_gevent, urls, region))
-		print(tasks)
+		if region.string in use_regions:
+			tasks.append(p.spawn(get_region_area_gevent, urls, region))
+			print(tasks)
+		else:
+			print(f"skip city {region.string}")
 	gevent.joinall(tasks)
 	print(f"urls: {urls}")
 	time.sleep(2)
