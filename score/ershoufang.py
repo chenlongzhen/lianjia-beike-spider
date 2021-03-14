@@ -319,7 +319,7 @@ def single_process_ershoufang(base_file, pages_url, total_pages, date):
 			tmp = soup.find_all('div', {'class': 'title'})
 		except:
 			continue
-		for urls in tmp:
+		for urls in tqdm(tmp):
 			for key in urls:
 				# print(region,area,key,'3'*20
 				# print(key.get('href'), '~' * 10
