@@ -98,6 +98,7 @@ def ershoufang_spider(base_file, url, date):
 	"""
 	爬取一个页面链接中的二手房记录
 	"""
+	time.sleep(random.random())
 	soup = get_soup(url)
 	with open(base_file, 'a') as f:
 		f.write("url: %s" % url)
@@ -319,6 +320,7 @@ def do_ershoufang_spider(date):
 
 def single_process_ershoufang(base_file, pages_url, total_pages, date):
 	for i in range(total_pages):
+		time.sleep(random.random())
 		url = pages_url + "pg%d" % (i + 1)
 		print(url)
 		try:
@@ -377,6 +379,7 @@ def get_urls(type):
 
 
 def get_region_area_gevent(urls, region):
+	time.sleep(random.random())
 	region_name = region.string
 	# if region_name != u'朝阳':
 	#     continue
@@ -392,6 +395,7 @@ def get_region_area_gevent(urls, region):
 		print(region_name)
 		return
 	for area in areas:  # fix
+		time.sleep(random.random())
 		if area.get('title') is not None:
 			continue
 		area_name = area.string
