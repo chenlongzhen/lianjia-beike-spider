@@ -34,4 +34,6 @@ regions_dict = {
     'region7': []
 }
 
-use_regions =[u"朝阳", u"海淀", u"丰台", u"石景山", u"通州", u"昌平", u"大兴", u"顺义",u"燕郊"]
+#use_regions =[u"朝阳", u"海淀", u"丰台", u"石景山", u"通州", u"昌平", u"大兴", u"顺义",u"燕郊"]
+use_regions =[u"朝阳"]
+

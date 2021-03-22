@@ -9,6 +9,7 @@ p = Pool(8)
 
 from common.DingTool import DingTool
 from common.common import *
+from common.setting import *
 from score import get_score
 from tqdm import tqdm
 import re
@@ -414,7 +415,7 @@ def get_region_area_gevent(urls, region):
 
 def get_soup(url):
 	try:
-		req = requests.get(url, headers=hds[random.randint(0, len(hds) - 1)])
+		req = requests.get(url, headers=hds[random.randint(0, len(hds) - 1)])#,proxies = ip_proxy())
 		source_code = req.content
 		soup = BeautifulSoup(source_code, 'lxml')
 	except (requests.HTTPError) as e:
